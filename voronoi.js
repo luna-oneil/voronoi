@@ -23,6 +23,8 @@ function ColorRange(rMin, rMax, gMin, gMax, bMin, bMax) {
 }
 
 function main() {
+    let windowHeight = window.innerHeight;
+    let windowWidth = window.innerWidth;
     const canvas = document.getElementById("world");
     const numPointsSlider = document.getElementById("num-points");
     const redMinSlider = document.getElementById("red-min");
@@ -32,8 +34,16 @@ function main() {
     const blueMinSlider = document.getElementById("blue-min");
     const blueMaxSlider = document.getElementById("blue-max");
     const colorRange = new ColorRange();
+    canvas.width = Math.floor(windowWidth / 1.25);
+    canvas.height = Math.floor(windowHeight / 1.22);
     getColorRangeFromSliders(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generate(canvas, colorRange, numPointsSlider.value);
+    window.addEventListener('resize', () => {
+        windowHeight = window.innerHeight;
+        windowWidth = window.innerWidth;
+        canvas.width = Math.floor(windowWidth / 1.25);
+        canvas.height = Math.floor(windowHeight / 1.22);
+    })
     numPointsSlider.addEventListener('change', () => {
         generate(canvas, colorRange, numPointsSlider.value);
     });
