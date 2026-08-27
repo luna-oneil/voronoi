@@ -28,6 +28,7 @@ body {
     flex-direction: column;
     margin-left: 10%;
     margin-right: 50%;
+    margin-bottom: 40px;
 }
 .description {
     margin-left: 10.2%;
