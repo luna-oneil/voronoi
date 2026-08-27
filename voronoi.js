@@ -39,6 +39,9 @@ function main() {
     getColorRangeFromSliders(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generate(canvas, colorRange, numPointsSlider.value);
     window.addEventListener('resize', () => {
+        if (windowWidth == window.innerWidth) {
+            return;
+        }
         windowHeight = window.innerHeight;
         windowWidth = window.innerWidth;
         canvas.width = Math.floor(windowWidth / 1.25);
