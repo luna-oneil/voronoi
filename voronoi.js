@@ -1,3 +1,5 @@
+"use strict";
+
 // object Point (color is a string)
 function Point(x, y, color) {
     this.position = new Vector2d(x, y);
@@ -106,11 +108,11 @@ function render(canvas, points) {
     // for every pixel (this is O(whp) time complexity, with w
     // being width, h being height, and p being the number of points)
     const ctx = canvas.getContext("2d");
-    for (x = 0; x < canvas.width; x++) {
-        for (y = 0; y < canvas.height; y++) {
+    for (let x = 0; x < canvas.width; x++) {
+        for (let y = 0; y < canvas.height; y++) {
             // find the closest point
             let closestPoint = points[0];
-            for (i = 1; i < points.length; i++) {
+            for (let i = 1; i < points.length; i++) {
                 if (findDistance(x, y, points[i].position.x, points[i].position.y) < 
                 findDistance(x, y, closestPoint.position.x, closestPoint.position.y)) {
                     closestPoint = points[i];
