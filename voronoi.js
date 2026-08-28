@@ -34,8 +34,8 @@ class ColorRange {
 
 function main() {
     let timer = null;
-    let windowHeight = window.innerHeight;
-    let windowWidth = window.innerWidth;
+    let windowHeight = 0;
+    let windowWidth = 0;
     const canvas = document.getElementById("world");
     const numPointsSlider = document.getElementById("num-points");
     const redMinSlider = document.getElementById("red-min");
@@ -47,9 +47,13 @@ function main() {
     const colorRange = new ColorRange(Number(redMinSlider.value), Number(redMaxSlider.value),
         Number(greenMinSlider.value), Number(greenMaxSlider.value),
         Number(blueMinSlider.value), Number(blueMaxSlider.value));
-    canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
-    canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
-    generate(canvas, colorRange, numPointsSlider.value);
+    document.addEventListener("DOMContentLoaded", () => {
+        windowHeight = window.innerHeight;
+        windowWidth = window.innerWidth;
+        canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
+        canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
+        generate(canvas, colorRange, numPointsSlider.value);
+    });
     window.addEventListener('resize', () => {
         if (windowWidth == window.innerWidth) {
             return;
