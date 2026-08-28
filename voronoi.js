@@ -1,6 +1,8 @@
 "use strict";
 
 const RESIZE_TIME_BEFORE_GENERATION = 20;
+const CANVAS_HEIGHT_SCALAR = 0.82;
+const CANVAS_WIDTH_SCALAR = 0.79
 
 // object Point (color is a string)
 function Point(x, y, color) {
@@ -37,8 +39,8 @@ function main() {
     const blueMinSlider = document.getElementById("blue-min");
     const blueMaxSlider = document.getElementById("blue-max");
     const colorRange = new ColorRange();
-    canvas.width = Math.floor(windowWidth / 1.25);
-    canvas.height = Math.floor(windowHeight / 1.22);
+    canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
+    canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
     getColorRangeFromSliders(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generate(canvas, colorRange, numPointsSlider.value);
     window.addEventListener('resize', () => {
@@ -47,8 +49,8 @@ function main() {
         }
         windowHeight = window.innerHeight;
         windowWidth = window.innerWidth;
-        canvas.width = Math.floor(windowWidth / 1.25);
-        canvas.height = Math.floor(windowHeight / 1.22);
+        canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
+        canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
         if (typeof(timer) != null) {
             clearTimeout(timer);
         }
