@@ -1,5 +1,7 @@
 "use strict";
 
+const RESIZE_TIME_BEFORE_GENERATION = 20;
+
 // object Point (color is a string)
 function Point(x, y, color) {
     this.position = new Vector2d(x, y);
@@ -23,6 +25,7 @@ function ColorRange(rMin, rMax, gMin, gMax, bMin, bMax) {
 }
 
 function main() {
+    let timer = null;
     let windowHeight = window.innerHeight;
     let windowWidth = window.innerWidth;
     const canvas = document.getElementById("world");
@@ -46,6 +49,12 @@ function main() {
         windowWidth = window.innerWidth;
         canvas.width = Math.floor(windowWidth / 1.25);
         canvas.height = Math.floor(windowHeight / 1.22);
+        if (typeof(timer) != null) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            generate(canvas, colorRange, numPointsSlider.value);
+        }, RESIZE_TIME_BEFORE_GENERATION);
     })
     numPointsSlider.addEventListener('change', () => {
         generate(canvas, colorRange, numPointsSlider.value);
