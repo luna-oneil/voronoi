@@ -6,9 +6,11 @@ const CANVAS_WIDTH_SCALAR = 0.79
 
 class Point {
     // x and y are ints, color is a string
-    constructor(x, y, color) {
+    constructor(x, y, red, green, blue) {
         this.position = new Vector2d(x, y);
-        this.color = color;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
     }
 }
 
@@ -114,26 +116,22 @@ function getRandomNum(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
 
-// returns string
-function getRandomColor(colorRange) {
-    let red = getRandomNum(colorRange.rMin, colorRange.rMax);
-    let green = getRandomNum(colorRange.gMin, colorRange.gMax);
-    let blue = getRandomNum(colorRange.bMin, colorRange.bMax);
-    return "rgb(" + String(red) + " " + String(green) + " " + String(blue) + ")";
-}
-
 // returns Point (maxX and maxY are exclusive)
 function makeRandomPoint(maxX, maxY, colorRange) {
     const x = getRandomNum(0, maxX);
     const y = getRandomNum(0, maxY);
-    const color = getRandomColor(colorRange);
-    return new Point(x, y, color);
+    let red = getRandomNum(colorRange.rMin, colorRange.rMax);
+    let green = getRandomNum(colorRange.gMin, colorRange.gMax);
+    let blue = getRandomNum(colorRange.bMin, colorRange.bMax);
+    return new Point(x, y, red, green, blue);
 }
 
 function render(canvas, points) {
     // for every pixel (this is O(whp) time complexity, with w
     // being width, h being height, and p being the number of points)
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", {willReadFrequently: true});
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const imagePixels = imageData.data;
     for (let x = 0; x < canvas.width; x++) {
         for (let y = 0; y < canvas.height; y++) {
             // find the closest point
@@ -144,10 +142,14 @@ function render(canvas, points) {
                     closestPoint = points[i];
                 }
             }
-            ctx.fillStyle = closestPoint.color;
-            ctx.fillRect(x, y, 1, 1);
+            const index = 4 * (y * canvas.width + x)
+            imagePixels[index] = closestPoint.red;
+            imagePixels[index + 1] = closestPoint.green;
+            imagePixels[index + 2] = closestPoint.blue;
+            imagePixels[index + 3] = 255;
         }
     }
+    ctx.putImageData(imageData, 0, 0);
 }
 
 function findDistance(x1, y1, x2, y2) {
