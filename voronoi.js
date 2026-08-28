@@ -4,26 +4,32 @@ const RESIZE_TIME_BEFORE_GENERATION = 20;
 const CANVAS_HEIGHT_SCALAR = 0.82;
 const CANVAS_WIDTH_SCALAR = 0.79
 
-// object Point (color is a string)
-function Point(x, y, color) {
-    this.position = new Vector2d(x, y);
-    this.color = color;
+class Point {
+    // x and y are ints, color is a string
+    constructor(x, y, color) {
+        this.position = new Vector2d(x, y);
+        this.color = color;
+    }
 }
 
-// object Vector2d
-function Vector2d(x, y) {
-    this.x = x;
-    this.y = y;
+class Vector2d {
+    // x and y are ints
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
 }
 
-// object colorRange
-function ColorRange(rMin, rMax, gMin, gMax, bMin, bMax) {
-    this.rMin = rMin;
-    this.rMax = rMax;
-    this.gMin = gMin;
-    this.gMax = gMax;
-    this.bMin = bMin;
-    this.bMax = bMax;
+class ColorRange {
+    // all variables are ints passed from ranges
+    constructor(rMin, rMax, gMin, gMax, bMin, bMax) {
+        this.rMin = rMin;
+        this.rMax = rMax;
+        this.gMin = gMin;
+        this.gMax = gMax;
+        this.bMin = bMin;
+        this.bMax = bMax;
+    }
 }
 
 function main() {
@@ -38,10 +44,11 @@ function main() {
     const greenMaxSlider = document.getElementById("green-max");
     const blueMinSlider = document.getElementById("blue-min");
     const blueMaxSlider = document.getElementById("blue-max");
-    const colorRange = new ColorRange();
+    const colorRange = new ColorRange(Number(redMinSlider.value), Number(redMaxSlider.value),
+        Number(greenMinSlider.value), Number(greenMaxSlider.value),
+        Number(blueMinSlider.value), Number(blueMaxSlider.value));
     canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
     canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
-    getColorRangeFromSliders(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generate(canvas, colorRange, numPointsSlider.value);
     window.addEventListener('resize', () => {
         if (windowWidth == window.innerWidth) {
@@ -88,15 +95,6 @@ function main() {
     canvas.addEventListener("click", function() {
         generate(canvas, colorRange, numPointsSlider.value);
     });
-}
-
-function getColorRangeFromSliders(colorRange, redMin, redMax, greenMin, greenMax, blueMin, blueMax) {
-    colorRange.rMin = Number(redMin.value);
-    colorRange.rMax = Number(redMax.value);
-    colorRange.gMin = Number(greenMin.value);
-    colorRange.gMax = Number(greenMax.value);
-    colorRange.bMin = Number(blueMin.value);
-    colorRange.bMax = Number(blueMax.value);
 }
 
 function generate(canvas, colorRange, numPoints) {
