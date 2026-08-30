@@ -14,25 +14,23 @@
         <p class="description">
             A simple Voronoi diagram simulator. Press the image to reset it, or use the sliders to change the settings! <b> WARNING: SETTING THE NUMBER OF POINTS ABOVE THE DEFAULT WILL HURT PERFORMANCE.</b> It <em>will</em> look cool though.
         </p>
-        <div class="game-holder">
-            <canvas id="world" class="game" id="game" width="1000" height="600"></canvas>
-        </div>
-        <button id="generate-button" class="generate-button">Generate!</button>
-        <div class="sliders-holder">
+        <main>
+            <canvas id="world" id="game" width="1000" height="600"></canvas>
+            <button id="generate-button" class="generate-button">Generate!</button>
             <p>Number of points</p>
-            <input type="range" min="1" max="1000" value="30" id="num-points" class="slider-blue">
+            <input type="range" min="1" max="1000" value="30" id="num-points" class="slider slider-blue">
             <p>Minimum red</p>
-            <input type="range" min="0" max="255" value="0" id="red-min" class="slider-red">
+            <input type="range" min="0" max="255" value="0" id="red-min" class="slider slider-red">
             <p>Maximum red</p>
-            <input type="range" min="0" max="255" value="255" id="red-max" class="slider-red">
+            <input type="range" min="0" max="255" value="255" id="red-max" class="slider slider-red">
             <p>Minimum green</p>
-            <input type="range" min="0" max="255" value="0" id="green-min" class="slider-green">
+            <input type="range" min="0" max="255" value="0" id="green-min" class="slider slider-green">
             <p>Maximum green</p>
-            <input type="range" min="0" max="255" value="255" id="green-max" class="slider-green">
+            <input type="range" min="0" max="255" value="255" id="green-max" class="slider slider-green">
             <p>Minimum blue</p>
-            <input type="range" min="0" max="255" value="0" id="blue-min" class="slider-blue">
+            <input type="range" min="0" max="255" value="0" id="blue-min" class="slider slider-blue">
             <p>Maximum blue</p>
-            <input type="range" min="0" max="255" value="255" id="blue-max" class="slider-blue">
-        </div>
+            <input type="range" min="0" max="255" value="255" id="blue-max" class="slider slider-blue">
+        </main>
     </body>
 </html>

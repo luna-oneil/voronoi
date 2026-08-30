@@ -10,14 +10,10 @@ body {
     margin: 0px;
     background-color: var(--bg);
 }
-.game-holder {
+main {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.game {
-    background-color: #0000;
-    border-radius: 0px;
+    flex-direction: column;
+    margin: 0px 10vw;
 }
 .title-bar {
     display: flex;
@@ -27,21 +23,18 @@ body {
     background-color: #35d;
     border-radius: 4px;
     font-size: 1.5em;
-    margin: 10px 0px;
+    margin: 30px 60% 10px 0px;
     border: 0px;
-}
-.sliders-holder {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10%;
-    margin-right: 50%;
-    margin-bottom: 40px;
 }
 .description {
     margin-left: 10.2%;
     margin-right: 10.2%;
     font-size: 1.2em;
     margin-top: 0%;
+}
+.slider {
+    width: 50%;
+    margin-bottom: 10px;
 }
 .slider-red {
     accent-color: #d33;
