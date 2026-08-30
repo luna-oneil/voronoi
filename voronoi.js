@@ -1,9 +1,5 @@
 "use strict";
 
-const RESIZE_TIME_BEFORE_GENERATION = 20;
-const CANVAS_HEIGHT_SCALAR = 0.82;
-const CANVAS_WIDTH_SCALAR = 0.79
-
 class Point {
     // x and y are ints, color is a string
     constructor(x, y, red, green, blue) {
