@@ -1,7 +1,6 @@
 "use strict";
 
 class Point {
-    // x and y are ints, color is a string
     constructor(x, y, red, green, blue) {
         this.position = new Vector2d(x, y);
         this.red = red;
@@ -46,24 +45,7 @@ function main() {
     document.addEventListener("DOMContentLoaded", () => {
         generate(canvas, colorRange, numPointsSlider.value);
     });
-    redMinSlider.addEventListener('change', () => {
-        colorRange.rMin = Number(redMinSlider.value);
-    });
-    redMaxSlider.addEventListener('change', () => {
-        colorRange.rMax = Number(redMaxSlider.value);
-    });
-    greenMinSlider.addEventListener('change', () => {
-        colorRange.gMin = Number(greenMinSlider.value);
-    });
-    greenMaxSlider.addEventListener('change', () => {
-        colorRange.gMax = Number(greenMaxSlider.value);
-    });
-    blueMinSlider.addEventListener('change', () => {
-        colorRange.bMin = Number(blueMinSlider.value);
-    });
-    blueMaxSlider.addEventListener('change', () => {
-        colorRange.bMax = Number(blueMaxSlider.value);
-    });
+    addSliderEventListeners(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generateButton.addEventListener("click", function() {
         generate(canvas, colorRange, numPointsSlider.value);
     });
@@ -92,6 +74,51 @@ function makeRandomPoint(maxX, maxY, colorRange) {
     return new Point(x, y, red, green, blue);
 }
 
+function addSliderEventListeners(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider) {
+    redMinSlider.addEventListener('change', () => {
+        if (Number(redMinSlider.value) > Number(redMaxSlider.value)) {
+            swapSliders(redMinSlider, redMaxSlider);
+            colorRange.rMax = Number(redMaxSlider.value);
+        }
+        colorRange.rMin = Number(redMinSlider.value);
+    });
+    redMaxSlider.addEventListener('change', () => {
+        if (Number(redMinSlider.value) > Number(redMaxSlider.value)) {
+            swapSliders(redMinSlider, redMaxSlider);
+            colorRange.rMin = Number(redMinSlider.value);
+        }
+        colorRange.rMax = Number(redMaxSlider.value);
+    });
+    greenMinSlider.addEventListener('change', () => {
+        if (Number(greenMinSlider.value) > Number(greenMaxSlider.value)) {
+            swapSliders(greenMinSlider, greenMaxSlider);
+            colorRange.gMax = Number(greenMaxSlider.value);
+        }
+        colorRange.gMin = Number(greenMinSlider.value);
+    });
+    greenMaxSlider.addEventListener('change', () => {
+        if (Number(greenMinSlider.value) > Number(greenMaxSlider.value)) {
+            swapSliders(greenMinSlider, greenMaxSlider);
+            colorRange.gMin = Number(greenMinSlider.value);
+        }
+        colorRange.gMax = Number(greenMaxSlider.value);
+    });
+    blueMinSlider.addEventListener('change', () => {
+        if (Number(blueMinSlider.value) > Number(blueMaxSlider.value)) {
+            swapSliders(blueMinSlider, blueMaxSlider);
+            colorRange.bMax = Number(blueMaxSlider.value);
+        }
+        colorRange.bMin = Number(blueMinSlider.value);
+    });
+    blueMaxSlider.addEventListener('change', () => {
+        if (Number(blueMinSlider.value) > Number(blueMaxSlider.value)) {
+            swapSliders(blueMinSlider, blueMaxSlider);
+            colorRange.bMin = Number(blueMinSlider.value);
+        }
+        colorRange.bMax = Number(blueMaxSlider.value);
+    });
+}
+
 function render(canvas, points) {
     // for every pixel (this is O(whp) time complexity, with w
     // being width, h being height, and p being the number of points)
@@ -118,8 +145,15 @@ function render(canvas, points) {
     ctx.putImageData(imageData, 0, 0);
 }
 
+function swapSliders(slider1, slider2) {
+    [slider1.value, slider2.value] = [slider2.value, slider1.value];
+    slider1.dispatchEvent(new Event('input'));
+    slider2.dispatchEvent(new Event('input'));
+}
+
+// NOT exact pixels, sqrt is avoided because this is only ever compared to other findDistance values in the codebase
 function findDistance(x1, y1, x2, y2) {
-    return Math.sqrt(((x1 - x2) ** 2) + ((y1 - y2) ** 2))
+    return ((x1 - x2) ** 2) + ((y1 - y2) ** 2);
 }
 
 main();

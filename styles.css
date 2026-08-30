@@ -1,6 +1,9 @@
 :root {
     --bg: #111;
     --fg: #fef;
+    --red: #d33;
+    --green: #181;
+    --blue: #35d;
 }
 * {
     font-family: Helvetica, Arial, sans-serif;
@@ -14,14 +17,13 @@ main {
     display: flex;
     flex-direction: column;
     margin: 0px 10vw;
-    align-items: left;
 }
 .title-bar {
     display: flex;
     justify-content: center;
 }
 .generate-button {
-    background-color: #35d;
+    background-color: var(--blue);
     border-radius: 4px;
     font-size: 1.5em;
     min-width: 40%;
@@ -40,11 +42,11 @@ main {
     margin-bottom: 10px;
 }
 .slider-red {
-    accent-color: #d33;
+    accent-color: var(--red);
 }
 .slider-green {
-    accent-color: #181;
+    accent-color: var(--green);
 }
 .slider-blue {
-    accent-color: #35d;
+    accent-color: var(--blue);
 }
