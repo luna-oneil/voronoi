@@ -35,9 +35,6 @@ class ColorRange {
 }
 
 function main() {
-    let timer = null;
-    let windowHeight = 0;
-    let windowWidth = 0;
     const canvas = document.getElementById("world");
     const numPointsSlider = document.getElementById("num-points");
     const redMinSlider = document.getElementById("red-min");
@@ -51,27 +48,8 @@ function main() {
         Number(greenMinSlider.value), Number(greenMaxSlider.value),
         Number(blueMinSlider.value), Number(blueMaxSlider.value));
     document.addEventListener("DOMContentLoaded", () => {
-        windowHeight = window.innerHeight;
-        windowWidth = window.innerWidth;
-        canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
-        canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
         generate(canvas, colorRange, numPointsSlider.value);
     });
-    window.addEventListener('resize', () => {
-        if (windowWidth == window.innerWidth) {
-            return;
-        }
-        windowHeight = window.innerHeight;
-        windowWidth = window.innerWidth;
-        canvas.width = Math.floor(windowWidth * CANVAS_WIDTH_SCALAR);
-        canvas.height = Math.floor(windowHeight * CANVAS_HEIGHT_SCALAR);
-        if (typeof(timer) != null) {
-            clearTimeout(timer);
-        }
-        timer = setTimeout(() => {
-            generate(canvas, colorRange, numPointsSlider.value);
-        }, RESIZE_TIME_BEFORE_GENERATION);
-    })
     redMinSlider.addEventListener('change', () => {
         colorRange.rMin = Number(redMinSlider.value);
     });
