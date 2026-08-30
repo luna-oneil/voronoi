@@ -15,21 +15,21 @@
             A simple Voronoi diagram simulator. Press the image to reset it, or use the sliders to change the settings! <b> WARNING: SETTING THE NUMBER OF POINTS ABOVE THE DEFAULT WILL HURT PERFORMANCE.</b> It <em>will</em> look cool though.
         </p>
         <main>
-            <canvas id="world" id="game" width="1000" height="600"></canvas>
-            <button id="generate-button" class="generate-button">Generate!</button>
-            <p>Number of points</p>
+            <canvas aria-label="Generated image" id="world" id="game" width="1000" height="600"></canvas>
+            <button aria-label="Generate" id="generate-button" class="generate-button">Generate!</button>
+            <label for="num-points">Number of points</label>
             <input type="range" min="1" max="1000" value="30" id="num-points" class="slider slider-blue">
-            <p>Minimum red</p>
+            <label for="red-min">Minimum red</label>
             <input type="range" min="0" max="255" value="0" id="red-min" class="slider slider-red">
-            <p>Maximum red</p>
+            <label for="red-max">Maximum red</label>
             <input type="range" min="0" max="255" value="255" id="red-max" class="slider slider-red">
-            <p>Minimum green</p>
+            <label for="green-min">Minimum green</label>
             <input type="range" min="0" max="255" value="0" id="green-min" class="slider slider-green">
-            <p>Maximum green</p>
+            <label for="green-max">Maximum green</label>
             <input type="range" min="0" max="255" value="255" id="green-max" class="slider slider-green">
-            <p>Minimum blue</p>
+            <label for="blue-min">Minimum blue</label>
             <input type="range" min="0" max="255" value="0" id="blue-min" class="slider slider-blue">
-            <p>Maximum blue</p>
+            <label for="blue-max">Maximum blue</label>
             <input type="range" min="0" max="255" value="255" id="blue-max" class="slider slider-blue">
         </main>
     </body>
