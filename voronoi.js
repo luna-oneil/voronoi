@@ -122,8 +122,8 @@ function addSliderEventListeners(colorRange, redMinSlider, redMaxSlider, greenMi
 function render(canvas, points) {
     // for every pixel (this is O(whp) time complexity, with w
     // being width, h being height, and p being the number of points)
-    const ctx = canvas.getContext("2d", {willReadFrequently: true});
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const ctx = canvas.getContext("2d");
+    const imageData = new ImageData(canvas.width, canvas.height);
     const imagePixels = imageData.data;
     for (let x = 0; x < canvas.width; x++) {
         for (let y = 0; y < canvas.height; y++) {
