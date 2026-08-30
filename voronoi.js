@@ -46,6 +46,7 @@ function main() {
     const greenMaxSlider = document.getElementById("green-max");
     const blueMinSlider = document.getElementById("blue-min");
     const blueMaxSlider = document.getElementById("blue-max");
+    const generateButton = document.getElementById("generate-button");
     const colorRange = new ColorRange(Number(redMinSlider.value), Number(redMaxSlider.value),
         Number(greenMinSlider.value), Number(greenMaxSlider.value),
         Number(blueMinSlider.value), Number(blueMaxSlider.value));
@@ -71,34 +72,25 @@ function main() {
             generate(canvas, colorRange, numPointsSlider.value);
         }, RESIZE_TIME_BEFORE_GENERATION);
     })
-    numPointsSlider.addEventListener('change', () => {
-        generate(canvas, colorRange, numPointsSlider.value);
-    });
     redMinSlider.addEventListener('change', () => {
         colorRange.rMin = Number(redMinSlider.value);
-        generate(canvas, colorRange, numPointsSlider.value);
     });
     redMaxSlider.addEventListener('change', () => {
         colorRange.rMax = Number(redMaxSlider.value);
-        generate(canvas, colorRange, numPointsSlider.value);
     });
     greenMinSlider.addEventListener('change', () => {
         colorRange.gMin = Number(greenMinSlider.value);
-        generate(canvas, colorRange, numPointsSlider.value);
     });
     greenMaxSlider.addEventListener('change', () => {
         colorRange.gMax = Number(greenMaxSlider.value);
-        generate(canvas, colorRange, numPointsSlider.value);
     });
     blueMinSlider.addEventListener('change', () => {
         colorRange.bMin = Number(blueMinSlider.value);
-        generate(canvas, colorRange, numPointsSlider.value);
     });
     blueMaxSlider.addEventListener('change', () => {
         colorRange.bMax = Number(blueMaxSlider.value);
-        generate(canvas, colorRange, numPointsSlider.value);
     });
-    canvas.addEventListener("click", function() {
+    generateButton.addEventListener("click", function() {
         generate(canvas, colorRange, numPointsSlider.value);
     });
 }
