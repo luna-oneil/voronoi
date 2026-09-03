@@ -1,5 +1,5 @@
 # Voronoi Diagram Generator
-Try the tool here: https://astranema.github.io/voronoi/
+Try the tool here: https://luna-oneil.github.io/voronoi/
 
 This webpage generates stained-glass-style Voronoi diagrams with parameters given by the user in the form of sliders. Directly utilizes the canvas's pixel data to ensure performant generation of the diagrams. Compatible across mobile and desktop browsers. 
 
