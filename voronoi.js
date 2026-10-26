@@ -35,13 +35,11 @@ function main() {
     const colorRange = new ColorRange(Number(redMinSlider.value), Number(redMaxSlider.value),
         Number(greenMinSlider.value), Number(greenMaxSlider.value),
         Number(blueMinSlider.value), Number(blueMaxSlider.value));
-    document.addEventListener("DOMContentLoaded", () => {
-        generate(canvas, colorRange, Number(numPointsSlider.value));
-    });
     addSliderEventListeners(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generateButton.addEventListener("click", function() {
         generate(canvas, colorRange, Number(numPointsSlider.value));
     });
+    generate(canvas, colorRange, Number(numPointsSlider.value));
 }
 
 function generate(canvas, colorRange, numPoints) {
@@ -147,8 +145,6 @@ function render(canvas, points) {
 
 function swapSliders(slider1, slider2) {
     [slider1.value, slider2.value] = [slider2.value, slider1.value];
-    slider1.dispatchEvent(new Event('change'));
-    slider2.dispatchEvent(new Event('change'));
 }
 
 // NOT exact pixels, sqrt is avoided because this is only ever compared to other findDistance values in the codebase
