@@ -66,8 +66,8 @@ function getRandomNum(min, max) {
 
 // returns Point (maxX and maxY are exclusive)
 function makeRandomPoint(maxX, maxY, colorRange) {
-    const x = getRandomNum(0, maxX);
-    const y = getRandomNum(0, maxY);
+    const x = getRandomNum(0, maxX - 1);
+    const y = getRandomNum(0, maxY - 1);
     let red = getRandomNum(colorRange.rMin, colorRange.rMax);
     let green = getRandomNum(colorRange.gMin, colorRange.gMax);
     let blue = getRandomNum(colorRange.bMin, colorRange.bMax);
