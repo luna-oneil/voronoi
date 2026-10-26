@@ -43,11 +43,11 @@ function main() {
         Number(greenMinSlider.value), Number(greenMaxSlider.value),
         Number(blueMinSlider.value), Number(blueMaxSlider.value));
     document.addEventListener("DOMContentLoaded", () => {
-        generate(canvas, colorRange, numPointsSlider.value);
+        generate(canvas, colorRange, Number(numPointsSlider.value));
     });
     addSliderEventListeners(colorRange, redMinSlider, redMaxSlider, greenMinSlider, greenMaxSlider, blueMinSlider, blueMaxSlider);
     generateButton.addEventListener("click", function() {
-        generate(canvas, colorRange, numPointsSlider.value);
+        generate(canvas, colorRange, Number(numPointsSlider.value));
     });
 }
 
@@ -119,9 +119,14 @@ function addSliderEventListeners(colorRange, redMinSlider, redMaxSlider, greenMi
     });
 }
 
+// precondition: points contains at least one point, canvas is a valid canvas within DOM
+// for every pixel (this is O(whp) time complexity, with w
+// being width, h being height, and p being the number of points)
 function render(canvas, points) {
-    // for every pixel (this is O(whp) time complexity, with w
-    // being width, h being height, and p being the number of points)
+    // returns if points is empty
+    if (points.length <= 0) {
+        return;
+    }
     const ctx = canvas.getContext("2d");
     const imageData = new ImageData(canvas.width, canvas.height);
     const imagePixels = imageData.data;
@@ -129,13 +134,14 @@ function render(canvas, points) {
         for (let y = 0; y < canvas.height; y++) {
             // find the closest point
             let closestPoint = points[0];
+            let minDistance = findDistance(x, y, closestPoint.position.x, closestPoint.position.y);
             for (let i = 1; i < points.length; i++) {
-                if (findDistance(x, y, points[i].position.x, points[i].position.y) < 
-                findDistance(x, y, closestPoint.position.x, closestPoint.position.y)) {
+                const dist = findDistance(x, y, points[i].position.x, points[i].position.y);
+                if (dist < minDistance) {
+                    minDistance = dist;
                     closestPoint = points[i];
                 }
-            }
-            const index = 4 * (y * canvas.width + x)
+            }            const index = 4 * (y * canvas.width + x)
             imagePixels[index] = closestPoint.red;
             imagePixels[index + 1] = closestPoint.green;
             imagePixels[index + 2] = closestPoint.blue;
@@ -147,8 +153,8 @@ function render(canvas, points) {
 
 function swapSliders(slider1, slider2) {
     [slider1.value, slider2.value] = [slider2.value, slider1.value];
-    slider1.dispatchEvent(new Event('input'));
-    slider2.dispatchEvent(new Event('input'));
+    slider1.dispatchEvent(new Event('change'));
+    slider2.dispatchEvent(new Event('change'));
 }
 
 // NOT exact pixels, sqrt is avoided because this is only ever compared to other findDistance values in the codebase
