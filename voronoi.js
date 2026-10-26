@@ -2,18 +2,11 @@
 
 class Point {
     constructor(x, y, red, green, blue) {
-        this.position = new Vector2d(x, y);
+        this.x = x;
+        this.y = y;
         this.red = red;
         this.green = green;
         this.blue = blue;
-    }
-}
-
-class Vector2d {
-    // x and y are ints
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
     }
 }
 
@@ -130,22 +123,23 @@ function render(canvas, points) {
     const ctx = canvas.getContext("2d");
     const imageData = new ImageData(canvas.width, canvas.height);
     const imagePixels = imageData.data;
-    for (let x = 0; x < canvas.width; x++) {
-        for (let y = 0; y < canvas.height; y++) {
+    let index = 0;
+    for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {            
             // find the closest point
             let closestPoint = points[0];
-            let minDistance = findDistance(x, y, closestPoint.position.x, closestPoint.position.y);
+            let minDistance = findDistance(x, y, closestPoint.x, closestPoint.y);
             for (let i = 1; i < points.length; i++) {
-                const dist = findDistance(x, y, points[i].position.x, points[i].position.y);
+                const dist = findDistance(x, y, points[i].x, points[i].y);
                 if (dist < minDistance) {
                     minDistance = dist;
                     closestPoint = points[i];
                 }
-            }            const index = 4 * (y * canvas.width + x)
-            imagePixels[index] = closestPoint.red;
-            imagePixels[index + 1] = closestPoint.green;
-            imagePixels[index + 2] = closestPoint.blue;
-            imagePixels[index + 3] = 255;
+            }
+            imagePixels[index++] = closestPoint.red;
+            imagePixels[index++] = closestPoint.green;
+            imagePixels[index++] = closestPoint.blue;
+            imagePixels[index++] = 255;
         }
     }
     ctx.putImageData(imageData, 0, 0);
@@ -159,7 +153,7 @@ function swapSliders(slider1, slider2) {
 
 // NOT exact pixels, sqrt is avoided because this is only ever compared to other findDistance values in the codebase
 function findDistance(x1, y1, x2, y2) {
-    return ((x1 - x2) ** 2) + ((y1 - y2) ** 2);
+    return ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2));
 }
 
 main();
